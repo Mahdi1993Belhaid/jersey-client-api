@@ -1,0 +1,7 @@
+
+Ú
+java:S6548"˜A Singleton implementation was detected. Make sure the use of the Singleton pattern is required and the implementation is the right one for the context.(„—ÍøÿÿÿÿJ$b4e63361-d417-4e65-90bb-05d5d301ae0a
+…
+java:S1854#"DRemove this useless assignment to local variable "apacheHttpClient".(³¢îşüÿÿÿÿJ$e6152037-4893-4ab9-bbb7-70d950d47837
+v
+java:S1481#"5Remove this unused "apacheHttpClient" local variable.(³¢îşüÿÿÿÿJ$c9036cd5-a02b-474b-aa9d-b5e12a0456dd
