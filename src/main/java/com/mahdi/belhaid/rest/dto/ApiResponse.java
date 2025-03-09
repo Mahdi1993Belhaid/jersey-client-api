@@ -2,41 +2,31 @@ package com.mahdi.belhaid.rest.dto;
 
 public class ApiResponse<T> {
 
-    private T data;
-    private ErrorResponse errorMessage;
+    private final T data;
+    private final ErrorResponse errorMessage;
 
-
-    public ApiResponse() {
-    }
 
     public ApiResponse(T data, ErrorResponse errorMessage) {
         this.data = data;
         this.errorMessage = errorMessage;
     }
 
-    public T getData() {
-        return data;
+    public ApiResponse(T data){
+        this(data,null);
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public ApiResponse(ErrorResponse errorMessage){
+        this(null,errorMessage);
+    }
+
+    public T getData() {
+        return data;
     }
 
     public ErrorResponse getErrorMessage() {
         return errorMessage;
     }
 
-    public void setErrorMessage(ErrorResponse errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public ApiResponse (ErrorResponse errorMessage){
-        this.errorMessage = errorMessage;
-    }
-
-    public  ApiResponse(T data){
-        this.data = data;
-    }
 
     @Override
     public String toString() {

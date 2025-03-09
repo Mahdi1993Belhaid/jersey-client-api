@@ -15,10 +15,11 @@ public final class UaCompteBancaireClient {
     public static final String  CSVAPS05 = "CSVAPS05";
     private UaCompteBancaireClient(){}
     public static ApiResponse<List<CBValeur>> getCBValeur(String codeUa, String date, String codeFlux) {
-        try{
-            Response response = ApiClientFactory
-                    .createClient(Csvaps05SynchroneInterface.class,CSVAPS05)
-                    .uaCompteBancaire(codeUa,date,codeFlux);
+        try(
+                Response response = ApiClientFactory
+                .createClient(Csvaps05SynchroneInterface.class,CSVAPS05)
+                .uaCompteBancaire(codeUa,date,codeFlux)){
+
             String responseBody = response.readEntity(String.class);
             return ResponseMapper.fetchDataList(responseBody, CBValeur.class);
         }catch (Exception exception){

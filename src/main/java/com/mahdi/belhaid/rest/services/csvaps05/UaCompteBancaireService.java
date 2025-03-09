@@ -26,7 +26,8 @@ public final class UaCompteBancaireService {
     }
 
     public static String handleError(ErrorResponse errorResponse){
-        return "{code: "+errorResponse.getCode()+", libelle:"+errorResponse.getLibelle()+" ,description:"+errorResponse.getDescription()+"}";
+       return  String.format("{code: %s , libelle: %s, description: %s}",errorResponse.getCode(),errorResponse.getLibelle(),errorResponse.getDescription());
+
     }
 
 }

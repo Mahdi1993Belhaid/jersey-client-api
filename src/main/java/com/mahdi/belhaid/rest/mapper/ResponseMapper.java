@@ -13,30 +13,23 @@ import java.util.List;
 public class ResponseMapper {
     private ResponseMapper(){}
     public static <R> ApiResponse<List<R>> fetchDataList(String responseBody, Class<R> clazz) {
-        ApiResponse<List<R>> apiResponse = new ApiResponse<>();
         ObjectMapper mapper = ObjectMapperFactory.getInstance();
         try {
             JsonNode jsonNode = mapper.readTree(responseBody);
-
             if (isErrorResponse(jsonNode)) {
                 ErrorResponse error = mapper.convertValue(jsonNode,ErrorResponse.class);
-                apiResponse.setErrorMessage(error);
+                return new ApiResponse<>(error);
             }else{
                 CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, clazz);
                 List<R> dataList = mapper.convertValue(jsonNode,listType);
-                apiResponse.setData(dataList);
+                return new ApiResponse<>(dataList);
             }
-
-
         } catch (Exception e) {
-            apiResponse.setErrorMessage(new ErrorResponse("50000", e.getMessage(), e.getCause().getMessage()));
-
+           return  new ApiResponse<>(new ErrorResponse("50000", e.getMessage(), e.getCause().getMessage()));
         }
-        return apiResponse;
     }
     public static <R> ApiResponse<R> fetchData(String responseBody, Class<R> clazz) {
 
-        ApiResponse<R> apiResponse = new ApiResponse<>();
         ObjectMapper mapper = ObjectMapperFactory.getInstance();
 
         try {
@@ -44,20 +37,15 @@ public class ResponseMapper {
 
             if (isErrorResponse(jsonNode)) {
                 ErrorResponse error = mapper.convertValue(jsonNode,ErrorResponse.class);
-                apiResponse.setErrorMessage(error);
-
+                return new ApiResponse<>(error);
             }
-
             R data = mapper.convertValue(jsonNode,clazz);
-            apiResponse.setData(data);
+            return new ApiResponse<>(data);
 
         } catch (Exception e) {
-            apiResponse.setErrorMessage(new ErrorResponse("7000", "Parsing Error", "Failed to parse response"));
-
+            return new ApiResponse<>(new ErrorResponse("7000", "Parsing Error", "Failed to parse response"));
         }
-        return apiResponse;
     }
-
 
     private static boolean isErrorResponse(JsonNode jsonNode) {
         return jsonNode.isObject() && jsonNode.has("code") && jsonNode.has("libelle");
