@@ -23,7 +23,7 @@ public final class UaCompteBancaireClient {
             String responseBody = response.readEntity(String.class);
             return ResponseMapper.fetchDataList(responseBody, CBValeur.class);
         }catch (Exception exception){
-            ErrorResponse errorResponse = new ErrorResponse("999999",exception.getMessage(),exception.getCause().getMessage());
+            ErrorResponse errorResponse = new ErrorResponse("999999",exception.getMessage(),exception.getMessage());
             return new ApiResponse<>(errorResponse);
         }
 
